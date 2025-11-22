@@ -13,7 +13,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
   };
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
+    <section className="relative pt-32 pb-20 overflow-hidden bg-white">
       {/* Background Gradients */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-gradient-to-b from-blue-50 via-indigo-50/50 to-white opacity-60 rounded-full blur-3xl -z-10" />
       
@@ -34,7 +34,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
           className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6 max-w-4xl mx-auto leading-[1.1]"
         >
-          Where Better Nights Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Better Futures.</span>
+          Where Better Nights Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 inline-block">Better Futures.</span>
         </motion.h1>
 
         <motion.p 
@@ -74,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 <div className="h-2 w-32 bg-slate-100 rounded-full"></div>
              </div>
              {/* Mockup Content - Abstract Dashboard */}
-             <div className="flex-1 bg-white p-8 overflow-hidden relative">
+             <div className="flex-1 bg-white p-8 overflow-hidden relative text-left">
                 {/* Background decorative blobs */}
                 <div className="absolute top-20 right-20 w-64 h-64 bg-purple-100 rounded-full filter blur-3xl opacity-50 animate-pulse"></div>
                 <div className="absolute bottom-10 left-10 w-80 h-80 bg-blue-100 rounded-full filter blur-3xl opacity-50"></div>
@@ -102,7 +102,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                         <div className="grid grid-cols-2 gap-6">
                             <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-6 rounded-3xl text-white shadow-xl shadow-blue-500/20">
                                 <p className="text-blue-100 text-sm font-medium mb-1">Current Streak</p>
-                                <h4 className="text-4xl font-bold">14 Days</h4>
+                                <h4 className="text-4xl font-bold text-white">14 Days</h4>
                             </div>
                              <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-center">
                                 <p className="text-slate-400 text-sm font-medium mb-1">Sleep Score</p>

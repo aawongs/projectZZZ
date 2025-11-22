@@ -6,6 +6,7 @@ export default {
     "./App.tsx",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', // Disables system 'media' preference auto-switching
   theme: {
     extend: {
       fontFamily: {
