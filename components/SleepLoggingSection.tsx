@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, AlertTriangle, ShieldCheck, Clock } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, ShieldCheck, Clock, RefreshCw, Check } from 'lucide-react';
 
 export const SleepLoggingSection: React.FC = () => {
+  const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'synced'>('idle');
+
+  const handleSync = () => {
+    setSyncStatus('syncing');
+    setTimeout(() => {
+      setSyncStatus('synced');
+      setTimeout(() => setSyncStatus('idle'), 3000);
+    }, 2000);
+  };
+
   return (
     <section className="py-24 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
@@ -90,9 +100,31 @@ export const SleepLoggingSection: React.FC = () => {
                     </div>
 
                     <div className="pt-4">
-                        <div className="w-full bg-indigo-600 text-white text-center py-3 rounded-xl font-medium text-sm shadow-lg shadow-indigo-200">
-                            Sync Data
-                        </div>
+                        <button 
+                          onClick={handleSync}
+                          disabled={syncStatus !== 'idle'}
+                          className={`w-full py-3 rounded-xl font-medium text-sm shadow-lg transition-all flex items-center justify-center gap-2 ${
+                            syncStatus === 'synced' 
+                              ? 'bg-green-600 text-white shadow-green-200' 
+                              : 'bg-indigo-600 text-white shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95'
+                          }`}
+                        >
+                          {syncStatus === 'idle' && (
+                            <>
+                              <RefreshCw size={16} /> Sync Data
+                            </>
+                          )}
+                          {syncStatus === 'syncing' && (
+                            <>
+                              <RefreshCw size={16} className="animate-spin" /> Syncing...
+                            </>
+                          )}
+                          {syncStatus === 'synced' && (
+                            <>
+                              <Check size={16} /> Up to Date
+                            </>
+                          )}
+                        </button>
                     </div>
                 </div>
              </motion.div>

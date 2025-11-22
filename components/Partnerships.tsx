@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Share2, Users, ClipboardCheck, Send } from 'lucide-react';
+import { Share2, Users, ClipboardCheck, Send, CheckCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 
 export const Partnerships: React.FC = () => {
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState('submitting');
+    // Simulate network request
+    setTimeout(() => {
+      setFormState('success');
+    }, 1500);
+  };
+
   return (
     <section id="partners" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -46,46 +57,78 @@ export const Partnerships: React.FC = () => {
                 <p className="text-slate-500 mt-2">Fill out the form below and our university relations team will be in touch.</p>
             </div>
             
-            <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">University Name</label>
-                        <input type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none" placeholder="e.g. University of Michigan" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Student Body Size</label>
-                        <select className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none bg-white">
-                            <option>Select size...</option>
-                            <option>Under 5,000</option>
-                            <option>5,000 - 15,000</option>
-                            <option>15,000 - 30,000</option>
-                            <option>30,000+</option>
-                        </select>
-                    </div>
+            {formState === 'success' ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-green-50 border border-green-100 rounded-2xl p-12 text-center"
+              >
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-4">
+                  <CheckCircle size={32} />
                 </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Contact Name</label>
-                        <input type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none" placeholder="Jane Doe" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Official Email</label>
-                        <input type="email" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none" placeholder="jane@university.edu" />
-                    </div>
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Message (Optional)</label>
-                    <textarea className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none h-32" placeholder="Tell us about your current wellness initiatives..."></textarea>
-                </div>
-                <div className="text-center">
-                    <Button size="lg" className="w-full md:w-auto">
-                        <span className="flex items-center gap-2">
-                            Submit Inquiry <Send size={16} />
-                        </span>
-                    </Button>
-                </div>
-            </form>
+                <h3 className="text-xl font-bold text-green-900 mb-2">Inquiry Received!</h3>
+                <p className="text-green-700">Thank you for your interest. Our partnerships team will contact you within 48 hours.</p>
+                <Button 
+                  variant="outline" 
+                  className="mt-6" 
+                  onClick={() => setFormState('idle')}
+                >
+                  Send Another
+                </Button>
+              </motion.div>
+            ) : (
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                  <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">University Name</label>
+                          <input type="text" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none" placeholder="e.g. University of Michigan" />
+                      </div>
+                      <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">Student Body Size</label>
+                          <select className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none bg-white">
+                              <option>Select size...</option>
+                              <option>Under 5,000</option>
+                              <option>5,000 - 15,000</option>
+                              <option>15,000 - 30,000</option>
+                              <option>30,000+</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">Contact Name</label>
+                          <input type="text" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none" placeholder="Jane Doe" />
+                      </div>
+                      <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">Official Email</label>
+                          <input type="email" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none" placeholder="jane@university.edu" />
+                      </div>
+                  </div>
+                  <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">Message (Optional)</label>
+                      <textarea className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-200 outline-none h-32" placeholder="Tell us about your current wellness initiatives..."></textarea>
+                  </div>
+                  <div className="text-center">
+                      <Button size="lg" className="w-full md:w-auto" type="submit" disabled={formState === 'submitting'}>
+                          {formState === 'submitting' ? (
+                            <span className="flex items-center gap-2">
+                              <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                              Sending...
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-2">
+                                Submit Inquiry <Send size={16} />
+                            </span>
+                          )}
+                      </Button>
+                  </div>
+              </form>
+            )}
         </div>
       </div>
     </section>
   );
+};
